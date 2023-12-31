@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../utils.dart';
+import '../vo/memo.dart';
 
 class TableEventsExample extends StatefulWidget {
   @override
@@ -20,6 +21,13 @@ class _TableEventsExampleState extends State<TableEventsExample> {
   DateTime? _selectedDay;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
+
+
+
+  Map<DateTime, List<Memo>> memos = {
+    DateTime(2023,12,31) : []
+  };
+
 
   @override
   void initState() {
@@ -93,7 +101,11 @@ class _TableEventsExampleState extends State<TableEventsExample> {
           TableCalendar<Event>(
             firstDay: kFirstDay,
             lastDay: kLastDay,
+            /// 현재 날짜 설정.
             focusedDay: _focusedDay,
+
+            /// 선택한 날짜 = 달력에 있는 날짜가 같은 경우에 true 처리 -> 색상 칠하기
+            /// isSameDay(_selectedDay, day) -> true 로 하면 모든 날짜가 색상이 칠해짐.
             selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
             rangeStartDay: _rangeStart,
             rangeEndDay: _rangeEnd,
